@@ -1,0 +1,12 @@
+let call=()=>
+{
+  let secret='es6 is the advance version of javascript';   //closure example program
+  let reveal=()=>
+  {
+    console.log(secret);
+  }
+  return reveal;
+
+}
+let have=call();
+have();
