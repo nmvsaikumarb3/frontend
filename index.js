@@ -4,6 +4,13 @@ import App from './App';
 
 ReactDOM.render(<App/>,document.getElementById('root')); //<App/> it is the self enclosing tag if dont want write anything in the middle of the tags
 
+
+
+
+
+
+
+/*
 class Animal
 {
     constructor(name,age)
@@ -38,3 +45,4 @@ const Lion1=new Lion('shaar',5,'golden',3);
 Lion1.raor();
 Lion1.speak();
 console.log(Lion1);
+*/
