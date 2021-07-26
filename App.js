@@ -13,18 +13,13 @@ console.log('componentclassinstance',componentclassinstance);
 
 class App extends Component
 {
-    constructor()
-    {
-        super();
-        this.state={displayBio:false};
-        console.log('Component this',this);
-        this.toggleDisplayBio=this.toggleDisplayBio.bind(this);
-    }
-   
+    state={displayBio:false};
+  
  
-        toggleDisplayBio()
+        toggleDisplayBio=()=>
         {
             this.setState({displayBio :!this.state.displayBio});
+           // this.state.displayBio=!this.state.displayBio; if we do this thing it not going to work we have to setstate.
 
         }
     
