@@ -10,9 +10,9 @@ class Project extends Component
 
 
         return (
-            <div style={{display:'inline-block',width:300,margin:10}}>
+            <div style={{display:'inline-block',width:350,margin:10}}>
                 <h3>{title}</h3>
-                <img src={image} alt='profile' style={{width:200,height:120}}/>
+                <img src={image} alt='profile' style={{width:200,height:120,margin:10}}/>
                 <p>{description}</p>
                 <a href={link}>{link}</a>
 
