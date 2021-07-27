@@ -31,7 +31,7 @@ class Projects extends Component
                    {
                        PROJECTS.map(PROJECT=>{
                            return(
-                               <Project key={PROJECT.id} project={PROJECT}/>
+                               <Project key={PROJECT.id} project={PROJECT}/>   //here the project is the prop ,which used to send data from one component to another .
 
                        );
 
