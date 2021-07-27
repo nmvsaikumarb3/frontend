@@ -1,7 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+console.log('hiiii buddy');
 
-ReactDOM.render(<App/>,document.getElementById('root')); //<App/> it is the self enclosing tag if dont want write anything in the middle of the tags
+const element=React.createElement('div',null,'React Element');
 
+ReactDOM.render(element,document.getElementById('root'));
