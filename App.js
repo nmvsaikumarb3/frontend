@@ -1,49 +1,38 @@
-import React,{Component} from 'react'; /* here component is insert because it is not a default class like React and React-DOM*/
+import React, { Component } from 'react';
+import Projects from './Projects';
 
-/*
-class Regular{}
-class Componentclass extends Component{}
+class App extends Component {
+  state = { displayBio: false };
 
-const regularinstance=new Regular();
-const componentclassinstance=new Componentclass();
+  toggleDisplayBio = () => {
+    this.setState({ displayBio: !this.state.displayBio });
+  }
 
-console.log('regularinstance',regularinstance);
-console.log('componentclassinstance',componentclassinstance);
-*/
-
-class App extends Component
-{
-    state={displayBio:false};
-  
- 
-        toggleDisplayBio=()=>
+  render() {
+    return (
+      <div>
+        <h1>Hello!</h1>
+        <p>My name is sai.</p>
+        <p>I'm always looking forward to working in IT sector.</p>
         {
-            this.setState({displayBio :!this.state.displayBio});
-           // this.state.displayBio=!this.state.displayBio; if we do this thing it not going to work we have to setstate.
-
-        }
-    
-    render(){               
-        const bio=this.state.displayBio? ( <div>                   
-        <p>i am learning react and doing the things practically</p>
-        <p>i am done with javascript and it was a great experience</p>
-        <button onClick={this.toggleDisplayBio}>Show less</button>
-    </div>):(
-        <div>
-            <button onClick={this.toggleDisplayBio}>Read more</button>
-        </div>
-    );
-
-  
-        return (
+          this.state.displayBio ? (
             <div>
-                <h1>hello</h1>
-                <p>i am sai .i am a software engineer</p>
-                <p>i used to work in the nagra vision company</p>
-              {bio}
+              <p>I live in India and enjoy the things.</p>
+              <p>My favorite language is JavaScript, and I think React.js is awesome.</p>
+              <p>Besides coding, I also love music and cricket</p>
+              <button onClick={this.toggleDisplayBio}>Show less</button>
             </div>
-        )
-    }
+          ) : (
+            <div>
+              <button onClick={this.toggleDisplayBio}>Read more</button>
+            </div>
+          )
+        }
+        <hr />
+        <Projects />
+      </div>
+    )
+  }
 }
 
 export default App;
