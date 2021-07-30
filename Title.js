@@ -9,36 +9,41 @@ const TITLES=[
 
 class Title extends Component
 {
-    state={titleIndex:0}; //titleIndex is the camicase means second word first letter should be capital
+    state={titleIndex:0,fadeIn:true}; //titleIndex is the camicase means second word first letter should be capital
 
 
-    componentDidMount()
+    componentDidMount()      //text line are going to be change because of this 
     {
-        console.log('Title component is mount');
+        this.timeout=setTimeout(()=>this.setState({fadeIn:false}),2000);
+
 
         this.animateTitles();
     }
-    componentWillUnmount()
+    componentWillUnmount()    //the changing to text will be stop but not we not using this
     {
-        console.log('Title component is unmount');
+    
         clearInterval(this.titleInterval);
+        clearTimeout(this.timeout);
     }
 
         animateTitles=()=>
         {
-           this.setInterval= setInterval(()=>{
+           this.setInterval= setInterval(()=>{           //it require when we use componentwillunmount
                 const titleIndex=(this.state.titleIndex+1)%TITLES.length;
 
-                this.setState({titleIndex});
+                this.setState({titleIndex,fadeIn:true});
+                this.timeout=setTimeout(()=>this.setState({fadeIn:false}),2000);
             },4000);
-            console.log('this.titleIntervel',this.titleIntervel);
+    
  
         }
     
     render(){
-    const title=TITLES[this.state.titleIndex];
+    const{fadeIn,titleIndex}=this.state;
+    const title=TITLES[titleIndex];
     return(
-        <p>I am  {title}</p>
+
+        <p className={fadeIn? 'title-fade-in':'title-fade-out'}>I am  {title}</p>
     )
 
 }
