@@ -1,45 +1,103 @@
 import React,{Component} from 'react';
-import Clock from './Clock';
-import './App.css';
-import {Form,FormControl,Button} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {addReminder,deleteReminder,clearReminder} from '../actions';
+import moment from 'moment';
+
 
 class App extends Component
 {
-  constructor(props){
+  constructor(props)
+  {
     super(props);
     this.state={
-      deadline:'December 25,2021',
-      newDeadline:''
-    }
+    text:'',
+    dueDate:''
   }
+  }
+  addReminder(){
+    console.log('this.state.dueDate',this.state.dueDate);
+    this.props.addReminder(this.state.text,this.state.dueDate);
 
-changeDeadline(){
-  this.setState({deadline:this.state.newDeadline});
-}
-  render()
+  }
+  deleteReminder(id)
   {
-    return(
-    <div className="App">
-    <div className="App-title">Countdown to {this.state.deadline}
-    </div>
-    <Clock
-    deadline={this.state.deadline}
-    />
-    <Form inline>
-
-    <FormControl
-      className="Deadline-input"
-      placeholder='new date'
-      onChange={event=>this.setState({newDeadline:event.target.value})}
-
-    />
-    <Button onClick={()=>this.changeDeadline()}>Submit
-    </Button>
-    </Form>
-
-    </div>
-  )
+    this.props.deleteReminder(id);
   }
+
+  renderReminders()
+  {
+    const{reminders}=this.props;
+    return (
+      <ul className="list-group col-sm-4">
+      {
+        reminders.map(reminder=>{
+          return (
+            <li key={reminder.id} className="list-group-item">
+            <div className="list-item">
+            <div>
+            <div>{reminder.text}</div>
+            <div><em>{moment(new Date(reminder.dueDate)).fromNow}</em></div>
+            </div>
+            </div>
+
+            <div className="list-item delete button"
+            onClick={()=>this.deleteReminder(reminder.id)}>
+             &#x2715;
+            </div>
+
+            </li>
+          )
+        })
+      }
+      </ul>
+    )
+  }
+
+
+  render(){
+
+    return (
+      <div className='App'>
+      <div className='title'>  reminderPro
+      </div>
+      <div className='form-inline reminder-form'>
+      <div className='form-group'>
+      <input className='form-control'
+      placeholder='i have to...'
+      onChange={event=>this.setState({text:event.target.value})}
+      />
+      <input className="form-control"
+      type="datetime-local"
+      onChange={event=>this.setState({dueDate:event.target.value})}
+      />
+      </div>
+      <button
+      type="button"
+      className="btn btn-success"
+      onClick={()=>this.addReminder()}>
+      Add Reminder</button>
+      </div>
+      {this.renderReminders()}
+      <div className="btn btn-danger"
+      onClick={()=>this.props.clearReminder()}>
+      Clear Reminders
+
+
+      </div>
+
+      </div>
+    )
+  }
+
+}
+function mapStatetoProps(state)
+{
+  console.log('state',state);
+  return{
+    reminders:state
+  }
+
 }
 
-export default App;
+
+export default connect(mapStatetoProps,{addReminder,deleteReminder,clearReminder})(App);
