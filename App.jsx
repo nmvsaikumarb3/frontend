@@ -1,103 +1,42 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {addReminder,deleteReminder,clearReminder} from '../actions';
-import moment from 'moment';
+import {firebaseApp} from '../firebase';
+import AddGoal from './AddGoal';
+import Goallist from './Goallist';
+import CompleteGoalList from './CompleteGoalList';
 
 
 class App extends Component
 {
-  constructor(props)
+  signOut()
   {
-    super(props);
-    this.state={
-    text:'',
-    dueDate:''
-  }
-  }
-  addReminder(){
-    console.log('this.state.dueDate',this.state.dueDate);
-    this.props.addReminder(this.state.text,this.state.dueDate);
+    firebaseApp.auth().signOut();
 
   }
-  deleteReminder(id)
-  {
-    this.props.deleteReminder(id);
-  }
-
-  renderReminders()
-  {
-    const{reminders}=this.props;
-    return (
-      <ul className="list-group col-sm-4">
-      {
-        reminders.map(reminder=>{
-          return (
-            <li key={reminder.id} className="list-group-item">
-            <div className="list-item">
-            <div>
-            <div>{reminder.text}</div>
-            <div><em>{moment(new Date(reminder.dueDate)).fromNow}</em></div>
-            </div>
-            </div>
-
-            <div className="list-item delete button"
-            onClick={()=>this.deleteReminder(reminder.id)}>
-             &#x2715;
-            </div>
-
-            </li>
-          )
-        })
-      }
-      </ul>
-    )
-  }
-
-
   render(){
-
-    return (
-      <div className='App'>
-      <div className='title'>  reminderPro
-      </div>
-      <div className='form-inline reminder-form'>
-      <div className='form-group'>
-      <input className='form-control'
-      placeholder='i have to...'
-      onChange={event=>this.setState({text:event.target.value})}
-      />
-      <input className="form-control"
-      type="datetime-local"
-      onChange={event=>this.setState({dueDate:event.target.value})}
-      />
-      </div>
+    return(
+      <div style={{margin:'5px'}}>
+      <h3>Goal Coach</h3>
+      <AddGoal />
+      <hr />
+      <h4>Goals</h4>
+      <Goallist />
+      <hr />
+      <h4>Complete Goals</h4>
+      <CompleteGoalList />
+      <hr />
       <button
-      type="button"
-      className="btn btn-success"
-      onClick={()=>this.addReminder()}>
-      Add Reminder</button>
-      </div>
-      {this.renderReminders()}
-      <div className="btn btn-danger"
-      onClick={()=>this.props.clearReminder()}>
-      Clear Reminders
-
-
-      </div>
-
+      className="btn btn-danger"
+      onClick={()=>this.signOut()}>
+      Sign Out</button>
       </div>
     )
   }
-
-}
-function mapStatetoProps(state)
-{
-  console.log('state',state);
-  return{
-    reminders:state
-  }
-
 }
 
+function mapStateToProps(state){
+  //console.log('state',state);
+  return {};
+}
 
-export default connect(mapStatetoProps,{addReminder,deleteReminder,clearReminder})(App);
+export default connect(mapStateToProps,null)(App);

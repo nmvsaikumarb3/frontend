@@ -1,3 +1,3 @@
-export const ADD_REMINDER='ADD_REMINDER';
-export const DELETE_REMINDER='DELETE_REMINDER';
-export const CLEAR_REMINDER ='CLEAR_REMINDER';      //it ensure that the date is true
+export const SIGNED_IN='SIGNED_IN';
+export const SET_GOALS='SET_GOALS';
+export const SET_COMPLETED ='SET_COMPLETED';
